@@ -1,0 +1,219 @@
+﻿<Window x:Class="Yahtzee.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:dxmvvm="http://schemas.devexpress.com/winfx/2008/xaml/mvvm"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModels="clr-namespace:Yahtzee.ViewModels"
+        mc:Ignorable="d"
+        Title="MainWindow" Width="568" Height="600" WindowStyle="SingleBorderWindow" DataContext="{dxmvvm:ViewModelSource Type={x:Type viewModels:MainViewModel}}">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="22"/>
+            <ColumnDefinition Width="362*"/>
+            <ColumnDefinition Width="111*"/>
+            <ColumnDefinition Width="22"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="26"/>
+            <RowDefinition Height="127*"/>
+            <RowDefinition Height="242*"/>
+            <RowDefinition Height="40*"/>
+            <RowDefinition Height="17*"/>
+            <RowDefinition Height="6*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="30*"/>
+            <RowDefinition Height="21*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock x:Name="MainTitle" TextWrapping="Wrap" Text="Yahtzee!" Grid.Row="1" FontFamily="Segoe UI Light" FontSize="72" TextAlignment="Center" Grid.ColumnSpan="4" Margin="0,0,0.323,0"/>
+        <Button x:Name="RollDiceButton" Command="{Binding RollCommand}" IsEnabled="{Binding RollDiceButtonEnabled}" Content="Roll Dice" Grid.Row="6" Grid.Column="2" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <Button x:Name="RollDiceAgainButton" Command="{Binding RollCommand}" IsEnabled="{Binding RollDiceAgainButtonEnabled}" Content="Roll Dice Again" Grid.Row="7" Grid.Column="2" VerticalAlignment="Top" Height="24" BorderBrush="Black"/>
+        <Button x:Name="TakeAnotherTurnButton" Command="{Binding RollCommand}" IsEnabled="{Binding TakeAnotherTurnButtonEnabled}" Content="Take Another Turn" Grid.Row="8" Grid.Column="2" Height="24" VerticalAlignment="Top" BorderBrush="Black"/>
+        <Rectangle x:Name="TotalBar" Fill="#FFEAE8E8" Grid.Row="3" Grid.ColumnSpan="4" Grid.Column="0"/>
+
+        <Grid Name="MenuBar" Grid.Row="0" Grid.RowSpan="10" Grid.ColumnSpan="4" Grid.Column="0" Margin="-2,0,2,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="375*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25*"/>
+                <RowDefinition Height="544*"/>
+            </Grid.RowDefinitions>
+            <Menu x:Name="MainMenuBar"
+                  BorderThickness="1" Background="#FFF0F0F0" Margin="1,-1,-3,0">
+                <MenuItem Header="File">
+                    <MenuItem Header="Start a new game">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="Click" Command="{Binding StartGameCommand}"/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </MenuItem>
+                    <MenuItem Header="Exit">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="Click" Command="{Binding ExitCommand}"/>
+                        </dxmvvm:Interaction.Behaviors>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="About">
+                    <MenuItem Header="About The Maker">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="Click" Command="{Binding AboutCommand}" />
+                        </dxmvvm:Interaction.Behaviors>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Help">
+                    <MenuItem Header="How to Play">
+                        <dxmvvm:Interaction.Behaviors>
+                            <dxmvvm:EventToCommand EventName="Click" Command="{Binding HelpCommand}" />
+                        </dxmvvm:Interaction.Behaviors>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+        </Grid>
+
+        <Grid Name="ScoreCard" Grid.Row="2" VerticalAlignment="Top" Height="165" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,0,21.323,0">
+            
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="0*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="0*"/>
+                <ColumnDefinition Width="113*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="76*"/>
+                <ColumnDefinition Width="82*"/>
+                <ColumnDefinition Width="118*"/>
+                <ColumnDefinition Width="5*"/>
+                <ColumnDefinition Width="76*"/>
+                <ColumnDefinition Width="0*"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="AcesButton" Command="{Binding PointSytemCommand}"  IsEnabled="{Binding AcesEnabled}" Content="ACES" VerticalAlignment="Top" Grid.Row="1" Height="20" Grid.Column="1" Grid.ColumnSpan="2">
+                <Button.Triggers>
+                    <EventTrigger RoutedEvent="Button.Click" SourceName="">
+                        <EventTrigger.Actions>
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsEnabled">
+                                        <DiscreteBooleanKeyFrame Value="False" KeyTime="00:00:00"/>
+                                    </BooleanAnimationUsingKeyFrames>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger.Actions>
+                    </EventTrigger>
+                </Button.Triggers>
+            </Button>
+            <Button x:Name="TwosButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding TwosEnabled}" Content="TWOS" VerticalAlignment="Top" Grid.Row="2" Height="20" Grid.Column="2" Margin="0"/>
+            <Button x:Name="ThreesButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding ThreesEnabled}" Content="THREES" VerticalAlignment="Top" Grid.Row="3" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="FoursButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FoursEnabled}" Content="FOURS" VerticalAlignment="Top" Grid.Row="4" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="FivesButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FivesEnabled}" Content="FIVES" VerticalAlignment="Top" Grid.Row="5" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="SixesButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding SixesEnabled}" Content="SIXES" VerticalAlignment="Top" Grid.Row="6" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+
+            <TextBlock x:Name="AcesScore" Text="{Binding AcesScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
+            <TextBlock x:Name="TwosScore" Text="{Binding TwosScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
+            <TextBlock x:Name="ThreesScore" Text="{Binding ThreesScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
+            <TextBlock x:Name="FoursScore" Text="{Binding FoursScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
+            <TextBlock x:Name="FiveScore" Text="{Binding FivesScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
+            <TextBlock x:Name="SixesScore" Text="{Binding SixesScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
+
+            <Button x:Name="ThreeKindButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding ThreeOKindPointsEnabled}" Content="3 OF A KIND" VerticalAlignment="Top" Grid.Row="1" Height="20" Grid.Column="6"/>
+            <Button x:Name="FourKindButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FourOKindPointsEnabled}" Content="4 OF A KIND" VerticalAlignment="Top" Grid.Row="2" Height="20" Grid.Column="6"/>
+            <Button x:Name="FullHouseButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FullHousePointsEnabled}" Content="FULL HOUSE" VerticalAlignment="Top" Grid.Row="3" Height="20" Grid.Column="6"/>
+            <Button x:Name="SmallStraightButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding SmallStraightPointsEnabled}" Content="SMALL STRAIGHT" VerticalAlignment="Top" Grid.Row="4" Height="20" Grid.Column="6"/>
+            <Button x:Name="LargeStraightButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding LargeStraightPointsEnabled}" Content="LARGE STRAIGHT" VerticalAlignment="Top" Grid.Row="5" Height="20" Grid.Column="6"/>
+            <Button x:Name="YahtzeeButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding YahtzeePointsEnabled}" Content="YAHTZEE" VerticalAlignment="Top" Grid.Row="6" Height="20" Grid.Column="6"/>
+            <Button x:Name="ChanceButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding ChancePointsEnabled}" Content="CHANCE" VerticalAlignment="Top" Grid.Row="7" Height="20" Grid.Column="6"/>
+
+            <TextBlock x:Name="ThreeKindScore" Text="{Binding ThreeOKindScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
+            <TextBlock x:Name="FourKindScore" Text="{Binding FourOKindScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
+            <TextBlock x:Name="FullHouseKindScore" Text="{Binding FullHouseScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
+            <TextBlock x:Name="SmallStraightScore" Text="{Binding SmallStraightScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="4" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
+            <TextBlock x:Name="LargeStraightScore" Text="{Binding LargeStraightScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
+            <TextBlock x:Name="YahtzeeScore" Text="{Binding YahtzeeScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
+            <TextBlock x:Name="ChanceScore" Text="{Binding ChanceScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="7" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
+        </Grid>
+
+        <Grid Name="Dice" Grid.Row="5" Grid.Column="1" Grid.RowSpan="4" Margin="0,0,0.092,0">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0*"/>
+                <RowDefinition Height="65*"/>
+                <RowDefinition Height="35*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+                <ColumnDefinition Width="40*"/>
+            </Grid.ColumnDefinitions>
+
+            <Rectangle HorizontalAlignment="Center" Height="50" Width="50" Stroke="Black" VerticalAlignment="Center" Grid.Row="1"/>
+            <Rectangle HorizontalAlignment="Center" Height="50" Width="50" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1"/>
+            <Rectangle HorizontalAlignment="Center" Height="50" Width="50" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="2"/>
+            <Rectangle HorizontalAlignment="Center" Height="50" Width="50" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="3"/>
+            <Rectangle HorizontalAlignment="Center" Height="50" Width="50" Stroke="Black" VerticalAlignment="Center" Grid.Row="1" Grid.Column="4"/>
+
+            <TextBlock x:Name="Die1" Text="{Binding Die1}" TextWrapping="Wrap" Width="50" FontSize="18" TextAlignment="Center" Grid.Row="1" Grid.Column="0" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Die2" Text="{Binding Die2}" TextWrapping="Wrap" Width="50" FontSize="18" TextAlignment="Center" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Die3" Text="{Binding Die3}" TextWrapping="Wrap" Width="50" FontSize="18" TextAlignment="Center" Grid.Row="1" Grid.Column="2" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Die4" Text="{Binding Die4}" TextWrapping="Wrap" Width="50" FontSize="18" TextAlignment="Center" Grid.Row="1" Grid.Column="3" VerticalAlignment="Center"/>
+            <TextBlock x:Name="Die5" Text="{Binding Die5}" TextWrapping="Wrap" Width="50" FontSize="18" TextAlignment="Center" Grid.Row="1" Grid.Column="4" VerticalAlignment="Center"/>
+
+            <CheckBox x:Name="HoldDie1" IsChecked="{Binding Hold1}" Content="Hold" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" Width="50"/>
+            <CheckBox x:Name="HoldDie2" IsChecked="{Binding Hold2}" Content="Hold" Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" Width="50"/>
+            <CheckBox x:Name="HoldDie3" IsChecked="{Binding Hold3}" Content="Hold" Grid.Row="2" Grid.Column="2" HorizontalAlignment="Center" Width="50"/>
+            <CheckBox x:Name="HoldDie4" IsChecked="{Binding Hold4}" Content="Hold" Grid.Row="2" Grid.Column="3" HorizontalAlignment="Center" Width="50"/>
+            <CheckBox x:Name="HoldDie5" IsChecked="{Binding Hold5}" Content="Hold" Grid.Row="2" Grid.Column="4" HorizontalAlignment="Center" Width="50"/>
+        </Grid>
+
+        <Grid Name="Total" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Grid.RowSpan="3" Margin="0,0,21.323,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20*"/>
+                <ColumnDefinition Width="110*"/>
+                <ColumnDefinition Width="76*"/>
+                <ColumnDefinition Width="80*"/>
+                <ColumnDefinition Width="158*"/>
+                <ColumnDefinition Width="76*"/>
+                <ColumnDefinition Width="0*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="167*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="5*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="40*"/>
+                <RowDefinition Height="17*"/>
+            </Grid.RowDefinitions>
+
+            <Label x:Name="BonusLabel" Content="Bonus:" VerticalAlignment="Top" Grid.Row="1" Grid.Column="1" Height="26" HorizontalAlignment="Right" Width="45" Grid.RowSpan="2"/>
+            <TextBlock x:Name="BonusTextbox" Text="0" Grid.Row="1" TextWrapping="Wrap" Grid.Column="2" Background="#FFEAE8E8" TextAlignment="Center" FontSize="14"/>
+
+            <TextBlock x:Name="SubTotalTextboxSectionTwo" Text="{Binding SectionTwoSubtotalDisplay}" Grid.Row="3" TextWrapping="Wrap" Grid.Column="5" Background="#FFEAE8E8" TextAlignment="Center" FontSize="14" Margin="0,1,0,0"/>
+            <Label x:Name="SubTotalLabelSectionTwo" Content="Subtotal:" VerticalAlignment="Top" Grid.Row="3" Grid.Column="4" Height="26" HorizontalAlignment="Right" Width="57" Grid.RowSpan="2"/>
+
+            <Label x:Name="SubTotalLabelSectionOne" Content="Subtotal:" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Right" Width="57" Grid.RowSpan="2"/>
+            <TextBlock x:Name="SubTotalTextboxSectionOne" Text="{Binding SectionOneSubtotalDisplay}" Grid.Row="3" TextWrapping="Wrap" Grid.Column="2" Background="#FFEAE8E8" TextAlignment="Center" FontSize="14"/>
+
+            <Label x:Name="GrandTotalLabel" Content="Grand Total:" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Height="26" Width="80" Margin="37,8,41,7"/>
+            <TextBlock x:Name="GrandTotalTextbox" Text="{Binding GrandTotalDisplay}" Grid.Row="5" TextWrapping="Wrap" Grid.Column="5" Background="White" VerticalAlignment="Center" Height="20" TextAlignment="Center" Margin="0,10,0,11" FontSize="14"/>
+
+            <TextBlock x:Name="YouWinOrLoseTextbox" Text="" Grid.Row="5" TextWrapping="Wrap" Grid.Column="3" TextAlignment="Center"/>
+
+        </Grid>
+
+    </Grid>
+
+</Window>

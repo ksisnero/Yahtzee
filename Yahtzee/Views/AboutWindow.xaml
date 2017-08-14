@@ -1,0 +1,18 @@
+﻿<Window x:Class="Yahtzee.Views.AboutWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Yahtzee.Views"
+        mc:Ignorable="d"
+        Title="AboutWindow" Height="300" Width="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="85*"/>
+            <RowDefinition Height="130*"/>
+            <RowDefinition Height="54*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="AboutTheCreator" TextWrapping="Wrap" Text="About The Creator" VerticalAlignment="Bottom" Height="44" FontFamily="Segoe UI Light" FontSize="32" TextAlignment="Center"/>
+        <TextBlock x:Name="AboutDescription" HorizontalAlignment="Left"  TextWrapping="Wrap" VerticalAlignment="Center" Height="98" Grid.Row="1" Margin="20,15,0,17" Width="242" ><Run Text="This game was made by Karina Sisnero using Visual Studio, C#, and WPF forms. This is her first Yahtzee Game. She likes programming, graphic design, and Star Wars."/><LineBreak/><Run Text="Enjoy the game!"/></TextBlock>
+    </Grid>
+</Window>
