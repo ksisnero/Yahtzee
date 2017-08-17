@@ -99,26 +99,12 @@
                 <ColumnDefinition Width="0*"/>
             </Grid.ColumnDefinitions>
 
-            <Button x:Name="AcesButton" Command="{Binding PointSytemCommand}"  IsEnabled="{Binding AcesEnabled}" Content="ACES" VerticalAlignment="Top" Grid.Row="1" Height="20" Grid.Column="1" Grid.ColumnSpan="2">
-                <Button.Triggers>
-                    <EventTrigger RoutedEvent="Button.Click" SourceName="">
-                        <EventTrigger.Actions>
-                            <BeginStoryboard>
-                                <Storyboard>
-                                    <BooleanAnimationUsingKeyFrames Storyboard.TargetProperty="IsEnabled">
-                                        <DiscreteBooleanKeyFrame Value="False" KeyTime="00:00:00"/>
-                                    </BooleanAnimationUsingKeyFrames>
-                                </Storyboard>
-                            </BeginStoryboard>
-                        </EventTrigger.Actions>
-                    </EventTrigger>
-                </Button.Triggers>
-            </Button>
-            <Button x:Name="TwosButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding TwosEnabled}" Content="TWOS" VerticalAlignment="Top" Grid.Row="2" Height="20" Grid.Column="2" Margin="0"/>
-            <Button x:Name="ThreesButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding ThreesEnabled}" Content="THREES" VerticalAlignment="Top" Grid.Row="3" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
-            <Button x:Name="FoursButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FoursEnabled}" Content="FOURS" VerticalAlignment="Top" Grid.Row="4" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
-            <Button x:Name="FivesButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FivesEnabled}" Content="FIVES" VerticalAlignment="Top" Grid.Row="5" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
-            <Button x:Name="SixesButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding SixesEnabled}" Content="SIXES" VerticalAlignment="Top" Grid.Row="6" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="AcesButton" Command="{Binding AddAcesCommand}"  IsEnabled="{Binding AcesEnabled}" Content="ACES" VerticalAlignment="Top" Grid.Row="1" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="TwosButton" Command="{Binding AddTwosCommand}" IsEnabled="{Binding TwosEnabled}" Content="TWOS" VerticalAlignment="Top" Grid.Row="2" Height="20" Grid.Column="2" Margin="0"/>
+            <Button x:Name="ThreesButton" Command="{Binding AddThreesCommand}" IsEnabled="{Binding ThreesEnabled}" Content="THREES" VerticalAlignment="Top" Grid.Row="3" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="FoursButton" Command="{Binding AddFoursCommand}" IsEnabled="{Binding FoursEnabled}" Content="FOURS" VerticalAlignment="Top" Grid.Row="4" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="FivesButton" Command="{Binding AddFivesCommand}" IsEnabled="{Binding FivesEnabled}" Content="FIVES" VerticalAlignment="Top" Grid.Row="5" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
+            <Button x:Name="SixesButton" Command="{Binding AddSixesCommand}" IsEnabled="{Binding SixesEnabled}" Content="SIXES" VerticalAlignment="Top" Grid.Row="6" Height="20" Grid.Column="1" Grid.ColumnSpan="2"/>
 
             <TextBlock x:Name="AcesScore" Text="{Binding AcesScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
             <TextBlock x:Name="TwosScore" Text="{Binding TwosScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
@@ -127,13 +113,13 @@
             <TextBlock x:Name="FiveScore" Text="{Binding FivesScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="5" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
             <TextBlock x:Name="SixesScore" Text="{Binding SixesScore}" Grid.Column="4" HorizontalAlignment="Left" Grid.Row="6" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" Grid.ColumnSpan="2" FontSize="14"/>
 
-            <Button x:Name="ThreeKindButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding ThreeOKindPointsEnabled}" Content="3 OF A KIND" VerticalAlignment="Top" Grid.Row="1" Height="20" Grid.Column="6"/>
-            <Button x:Name="FourKindButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FourOKindPointsEnabled}" Content="4 OF A KIND" VerticalAlignment="Top" Grid.Row="2" Height="20" Grid.Column="6"/>
-            <Button x:Name="FullHouseButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding FullHousePointsEnabled}" Content="FULL HOUSE" VerticalAlignment="Top" Grid.Row="3" Height="20" Grid.Column="6"/>
-            <Button x:Name="SmallStraightButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding SmallStraightPointsEnabled}" Content="SMALL STRAIGHT" VerticalAlignment="Top" Grid.Row="4" Height="20" Grid.Column="6"/>
-            <Button x:Name="LargeStraightButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding LargeStraightPointsEnabled}" Content="LARGE STRAIGHT" VerticalAlignment="Top" Grid.Row="5" Height="20" Grid.Column="6"/>
-            <Button x:Name="YahtzeeButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding YahtzeePointsEnabled}" Content="YAHTZEE" VerticalAlignment="Top" Grid.Row="6" Height="20" Grid.Column="6"/>
-            <Button x:Name="ChanceButton" Command="{Binding PointSytemCommand}" IsEnabled="{Binding ChancePointsEnabled}" Content="CHANCE" VerticalAlignment="Top" Grid.Row="7" Height="20" Grid.Column="6"/>
+            <Button x:Name="ThreeKindButton" Command="{Binding AddThreeKindCommand}" IsEnabled="{Binding ThreeOKindPointsEnabled}" Content="3 OF A KIND" VerticalAlignment="Top" Grid.Row="1" Height="20" Grid.Column="6"/>
+            <Button x:Name="FourKindButton" Command="{Binding AddFourKindCommand}" IsEnabled="{Binding FourOKindPointsEnabled}" Content="4 OF A KIND" VerticalAlignment="Top" Grid.Row="2" Height="20" Grid.Column="6"/>
+            <Button x:Name="FullHouseButton" Command="{Binding AddFullHouseCommand}" IsEnabled="{Binding FullHousePointsEnabled}" Content="FULL HOUSE" VerticalAlignment="Top" Grid.Row="3" Height="20" Grid.Column="6"/>
+            <Button x:Name="SmallStraightButton" Command="{Binding AddSmallCommand}" IsEnabled="{Binding SmallStraightPointsEnabled}" Content="SMALL STRAIGHT" VerticalAlignment="Top" Grid.Row="4" Height="20" Grid.Column="6"/>
+            <Button x:Name="LargeStraightButton" Command="{Binding AddLargeCommand}" IsEnabled="{Binding LargeStraightPointsEnabled}" Content="LARGE STRAIGHT" VerticalAlignment="Top" Grid.Row="5" Height="20" Grid.Column="6"/>
+            <Button x:Name="YahtzeeButton" Command="{Binding AddYahtzeeCommand}" IsEnabled="{Binding YahtzeePointsEnabled}" Content="YAHTZEE" VerticalAlignment="Top" Grid.Row="6" Height="20" Grid.Column="6"/>
+            <Button x:Name="ChanceButton" Command="{Binding AddChanceCommand}" IsEnabled="{Binding ChancePointsEnabled}" Content="CHANCE" VerticalAlignment="Top" Grid.Row="7" Height="20" Grid.Column="6"/>
 
             <TextBlock x:Name="ThreeKindScore" Text="{Binding ThreeOKindScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="1" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
             <TextBlock x:Name="FourKindScore" Text="{Binding FourOKindScore}" Grid.Column="8" HorizontalAlignment="Right" Grid.Row="2" TextWrapping="Wrap" VerticalAlignment="Top" Height="20" Background="#FFEAE8E8" Width="76" TextAlignment="Center" FontSize="14"/>
@@ -207,7 +193,7 @@
             <Label x:Name="SubTotalLabelSectionOne" Content="Subtotal:" VerticalAlignment="Top" Grid.Row="3" Grid.Column="1" Height="25" HorizontalAlignment="Right" Width="57" Grid.RowSpan="2"/>
             <TextBlock x:Name="SubTotalTextboxSectionOne" Text="{Binding SectionOneSubtotalDisplay}" Grid.Row="3" TextWrapping="Wrap" Grid.Column="2" Background="#FFEAE8E8" TextAlignment="Center" FontSize="14"/>
 
-            <Label x:Name="GrandTotalLabel" Content="Grand Total:" Grid.Row="5" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Bold" Height="26" Width="80" Margin="37,8,41,7"/>
+            <Label x:Name="GrandTotalLabel" Content="Grand Total:" Grid.Row="5" Grid.Column="4" VerticalAlignment="Center" FontWeight="Bold" Margin="0,0,9,0" HorizontalAlignment="Right"/>
             <TextBlock x:Name="GrandTotalTextbox" Text="{Binding GrandTotalDisplay}" Grid.Row="5" TextWrapping="Wrap" Grid.Column="5" Background="White" VerticalAlignment="Center" Height="20" TextAlignment="Center" Margin="0,10,0,11" FontSize="14"/>
 
             <TextBlock x:Name="YouWinOrLoseTextbox" Text="" Grid.Row="5" TextWrapping="Wrap" Grid.Column="3" TextAlignment="Center"/>

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Windows;
+using DevExpress.Data.Browsing.Design;
 using Yahtzee.Models;
 using Yahtzee.Views;
-
 
 namespace Yahtzee.ViewModels
 {
@@ -12,26 +11,6 @@ namespace Yahtzee.ViewModels
         private static List<int> _diceList;
         private static List<int> _sectionOnePointsList;
         private static List<int> _sectionTwoPointsList;
-
-        private void _populateLists()
-        {
-            _diceList = new List<int> { Die1, Die2, Die3, Die4, Die5 };
-
-            _sectionOnePointsList = new List<int> { AcesScore, TwosScore, ThreesScore, FoursScore, FivesScore, SixesScore };
-
-            _sectionTwoPointsList = new List<int> { ThreeOKindScore, FourOKindScore, FullHouseScore, SmallStraightScore, LargeStraightScore, YahtzeeScore, ChanceScore };
-        }
-
-        public virtual void StartGame()
-        {
-            RollDiceButtonEnabled = true;
-
-            Die1 = 0;
-            Die2 = 0;
-            Die3 = 0;
-            Die4 = 0;
-            Die5 = 0;
-        }
 
         public virtual void Roll()
         {
@@ -47,8 +26,7 @@ namespace Yahtzee.ViewModels
             if(Hold5 == false)
                 Die5 = dieRandomizer.Randomize();
 
-            _populateLists();
-            EnablePointButtons();
+            PopulateLists();
             PointSytem();
             DisableRollButtons();
             CheckIfGameOver();
@@ -57,23 +35,53 @@ namespace Yahtzee.ViewModels
         public virtual void DisableRollButtons()
         {
             if (RollDiceButtonEnabled)
-            {
-                RollDiceButtonEnabled = false;
-                RollDiceAgainButtonEnabled = true;
-                TakeAnotherTurnButtonEnabled = false;
-            }
+                EnableRollDiceAgainButton();
             else if (RollDiceAgainButtonEnabled)
-            {
-                RollDiceButtonEnabled = false;
-                RollDiceAgainButtonEnabled = false;
-                TakeAnotherTurnButtonEnabled = true;
-            }
+                EnableTakeAnotherTurnButton();
             else if (TakeAnotherTurnButtonEnabled)
-            {
-                RollDiceButtonEnabled = true;
-                RollDiceAgainButtonEnabled = false;
-                TakeAnotherTurnButtonEnabled = false;
-            }
+                DisableAllRollButtons();
+        }
+
+        public void PointSytem()
+        {
+            ScoreCard scoringMethods = new ScoreCard(_diceList);
+
+            if (AcesEnabled)
+                AcesScore = scoringMethods.SumInstancesOfNumber(1, AcesEnabled);
+            if (TwosEnabled)
+                TwosScore = scoringMethods.SumInstancesOfNumber(2, TwosEnabled);
+            if (ThreesEnabled)
+                ThreesScore = scoringMethods.SumInstancesOfNumber(3, ThreesEnabled);
+            if (FoursEnabled)
+                FoursScore = scoringMethods.SumInstancesOfNumber(4, FoursEnabled);
+            if (FivesEnabled)
+                FivesScore = scoringMethods.SumInstancesOfNumber(5, FivesEnabled);
+            if (SixesEnabled)
+                SixesScore = scoringMethods.SumInstancesOfNumber(6, SixesEnabled);
+
+            if (ThreeOKindPointsEnabled)
+                ThreeOKindScore = scoringMethods.ThreeOfAKind(ThreeOKindPointsEnabled);
+            if (FourOKindPointsEnabled)
+                FourOKindScore = scoringMethods.FourOfAKind(FourOKindPointsEnabled);
+            if (FullHousePointsEnabled)
+                FullHouseScore = scoringMethods.FullHouse(FullHousePointsEnabled);
+            if (SmallStraightPointsEnabled)
+                SmallStraightScore = scoringMethods.SmallStraight(SmallStraightPointsEnabled);
+            if (LargeStraightPointsEnabled)
+                LargeStraightScore = scoringMethods.LargeStraight(LargeStraightPointsEnabled);
+            if (YahtzeePointsEnabled)
+                YahtzeeScore = scoringMethods.Yahtzee(YahtzeePointsEnabled);
+            if (ChancePointsEnabled)
+                ChanceScore = scoringMethods.Chance(ChancePointsEnabled);
+        }
+
+        public void PopulateLists()
+        {
+            _diceList = new List<int> { Die1, Die2, Die3, Die4, Die5 };
+
+            _sectionOnePointsList = new List<int> { AcesScore, TwosScore, ThreesScore, FoursScore, FivesScore, SixesScore };
+
+            _sectionTwoPointsList = new List<int> { ThreeOKindScore, FourOKindScore, FullHouseScore, SmallStraightScore, LargeStraightScore, YahtzeeScore, ChanceScore };
         }
 
         public void EnablePointButtons()
@@ -94,37 +102,41 @@ namespace Yahtzee.ViewModels
             ChancePointsEnabled = true;
         }
 
-        public virtual void PointSytem()
+        public void UncheckHoldButtons()
         {
-            ScoreCard scoringMethods = new ScoreCard(_diceList);
+            Hold1 = false;
+            Hold2 = false;
+            Hold3 = false;
+            Hold4 = false;
+            Hold5 = false;
+        }
 
-            if(AcesEnabled)
-                AcesScore = scoringMethods.SumInstancesOfNumber(1, AcesEnabled);
-            if(TwosEnabled)
-                TwosScore = scoringMethods.SumInstancesOfNumber(2, TwosEnabled);
-            if(ThreesEnabled)
-                ThreesScore = scoringMethods.SumInstancesOfNumber(3, ThreesEnabled);
-            if(FoursEnabled)
-                FoursScore = scoringMethods.SumInstancesOfNumber(4, FoursEnabled);
-            if(FivesEnabled)
-                FivesScore = scoringMethods.SumInstancesOfNumber(5, FivesEnabled);
-            if(SixesEnabled)
-                SixesScore = scoringMethods.SumInstancesOfNumber(6, SixesEnabled);
+        public void EnableRollDiceButton()
+        {
+            RollDiceButtonEnabled = true;
+            RollDiceAgainButtonEnabled = false;
+            TakeAnotherTurnButtonEnabled = false;
+        }
 
-            if(ThreeOKindPointsEnabled)
-                ThreeOKindScore = scoringMethods.OfAKind(ThreeOKindPointsEnabled);
-            if(FourOKindPointsEnabled)
-                FourOKindScore = scoringMethods.OfAKind(FourOKindPointsEnabled);
-            if(FullHousePointsEnabled)
-                FullHouseScore = scoringMethods.FullHouse(FullHousePointsEnabled);
-            if(SmallStraightPointsEnabled)
-                SmallStraightScore = scoringMethods.SmallStraight(SmallStraightPointsEnabled);
-            if(LargeStraightPointsEnabled)
-                LargeStraightScore = scoringMethods.LargeStraight(LargeStraightPointsEnabled);
-            if(YahtzeePointsEnabled)
-                YahtzeeScore = scoringMethods.Yahtzee(YahtzeePointsEnabled);
-            if (ChancePointsEnabled)
-                ChanceScore = scoringMethods.Chance(ChancePointsEnabled);
+        public void EnableRollDiceAgainButton()
+        {
+            RollDiceButtonEnabled = false;
+            RollDiceAgainButtonEnabled = true;
+            TakeAnotherTurnButtonEnabled = false;
+        }
+
+        public void EnableTakeAnotherTurnButton()
+        {
+            RollDiceButtonEnabled = false;
+            RollDiceAgainButtonEnabled = false;
+            TakeAnotherTurnButtonEnabled = true;
+        }
+
+        public void DisableAllRollButtons()
+        {
+            RollDiceButtonEnabled = false;
+            RollDiceAgainButtonEnabled = false;
+            TakeAnotherTurnButtonEnabled = false;
         }
 
         public void Total()
@@ -137,6 +149,8 @@ namespace Yahtzee.ViewModels
                 SectionOneBonusDisplay = 35;
                 SectionOneSubtotalDisplay = SectionOneSubtotalDisplay + SectionOneBonusDisplay;
             }
+
+            GrandTotalDisplay = _sectionOnePointsList.Sum() + _sectionTwoPointsList.Sum();
         }
 
         public void CheckIfGameOver()
@@ -170,6 +184,18 @@ namespace Yahtzee.ViewModels
         {
             var x = new MainWindow();
             x.Close();
+        }
+
+        public virtual void StartGame()
+        {
+            RollDiceButtonEnabled = true;
+            EnablePointButtons();
+
+            Die1 = 0;
+            Die2 = 0;
+            Die3 = 0;
+            Die4 = 0;
+            Die5 = 0;
         }
 
         public virtual void Help()

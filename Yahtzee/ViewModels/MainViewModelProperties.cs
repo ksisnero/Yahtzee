@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Yahtzee.ViewModels
+﻿namespace Yahtzee.ViewModels
 {
     public partial class MainViewModel
     {
@@ -58,5 +52,111 @@ namespace Yahtzee.ViewModels
         public virtual int SectionOneBonusDisplay { get; set; }
         public virtual int SectionTwoSubtotalDisplay { get; set; }
         public virtual int GrandTotalDisplay { get; set; }
+
+        public void AddAces()
+        {
+            AcesEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddTwos()
+        {
+            TwosEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddThrees()
+        {
+            ThreesEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddFours()
+        {
+            FoursEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddFives()
+        {
+            FivesEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddSixes()
+        {
+            SixesEnabled = false;
+            
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+
+        public void AddThreeKind()
+        {
+            ThreeOKindPointsEnabled = false;
+            
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddFourKind()
+        {
+            FourOKindPointsEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddFullHouse()
+        {
+            FullHousePointsEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddSmall()
+        {
+            SmallStraightPointsEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddLarge()
+        {
+            LargeStraightPointsEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddYahtzee()
+        {
+            YahtzeePointsEnabled = false;
+
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
+        public void AddChance()
+        {
+            ChancePointsEnabled = false;
+            
+            EnableRollDiceButton();
+            UncheckHoldButtons();
+            PointSytem();
+        }
     }
 }

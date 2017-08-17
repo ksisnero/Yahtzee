@@ -3,6 +3,9 @@ using System.Linq;
 
 namespace Yahtzee.Models
 {
+    /// <summary>
+    /// Algorithms to calculate the score of each type of points
+    /// </summary>
     public class ScoreCard
     {
         private List<int> DiceValues;
@@ -30,18 +33,29 @@ namespace Yahtzee.Models
             return score;
         }
 
-        public int OfAKind(bool buttonIsEnabled)
+        public int ThreeOfAKind(bool buttonIsEnabled)
         {
             int score = 0;
 
             foreach (int numericalValue in DiceValues)
             {
-                //if the same number appears 3 times...display points (and so on)
                 int diceValueCount = DiceValues.Count(c => c == numericalValue);
 
-                if (buttonIsEnabled && diceValueCount == 3)   //Three of a kind
+                if (buttonIsEnabled && diceValueCount == 3)
                     score = Sum();
-                if (buttonIsEnabled && diceValueCount == 4)   //Four of a kind
+            }
+            return score;
+        }
+
+        public int FourOfAKind(bool buttonIsEnabled)
+        {
+            int score = 0;
+
+            foreach (int numericalValue in DiceValues)
+            {
+                int diceValueCount = DiceValues.Count(c => c == numericalValue);
+
+                if (buttonIsEnabled && diceValueCount == 4)
                     score = Sum();
             }
             return score;
@@ -64,15 +78,17 @@ namespace Yahtzee.Models
         public int FullHouse(bool buttonIsEnabled)
         {
             int score = 0;
+            List<int> diceValueCount = new List<int>();
+            bool fullHouseExists = false;
 
             foreach (int numericalValue in DiceValues)
             {
-                var diceValueCount = DiceValues.Count(v => v == numericalValue);
+                diceValueCount.Add(DiceValues.Count(v => v == numericalValue));
+                fullHouseExists = diceValueCount.Exists(v => v == 2) && diceValueCount.Exists(v => v == 3);
             }
-            //var fullHouseExists = group diceValueCount
-            //var fullHouseExists = diceValueIterations.Exists(v => v == 2 && v == 3);
-            //if (fullHouseExists && buttonIsEnabled)
-            //    score = 25;
+            
+            if (fullHouseExists && buttonIsEnabled)
+                score = 25;
 
             return score;
         }
@@ -100,8 +116,13 @@ namespace Yahtzee.Models
         {
             int score = 0;
 
+            var largeStraights = new List<List<int>>
+            {
+                new List<int> {1, 2, 3, 4, 5},
+                new List<int> {2, 3, 4, 5, 6}
+            };
             DiceValues.Sort();
-            var largeStraightsExists = DiceValues.Count() == 1; //iffy - think it through
+            var largeStraightsExists = largeStraights.Exists(x => x.Intersect(DiceValues).Count() == 5); 
 
             if (largeStraightsExists && buttonIsEnabled)
                 score = 40;
