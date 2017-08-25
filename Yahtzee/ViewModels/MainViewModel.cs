@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using DevExpress.Data.Browsing.Design;
 using Yahtzee.Models;
 using Yahtzee.Views;
 
@@ -15,15 +14,15 @@ namespace Yahtzee.ViewModels
         public virtual void Roll()
         {
             Die dieRandomizer = new Die();
-            if(Hold1 == false)
+            if (Hold1 == false)
                 Die1 = dieRandomizer.Randomize();
-            if(Hold2 == false)
+            if (Hold2 == false)
                 Die2 = dieRandomizer.Randomize();
-            if(Hold3 == false)
+            if (Hold3 == false)
                 Die3 = dieRandomizer.Randomize();
-            if(Hold4 == false)
+            if (Hold4 == false)
                 Die4 = dieRandomizer.Randomize();
-            if(Hold5 == false)
+            if (Hold5 == false)
                 Die5 = dieRandomizer.Randomize();
 
             PopulateLists();
@@ -167,7 +166,7 @@ namespace Yahtzee.ViewModels
                 && SmallStraightPointsEnabled == false
                 && LargeStraightPointsEnabled == false
                 && YahtzeePointsEnabled == false
-                && ChancePointsEnabled ==  false)
+                && ChancePointsEnabled == false)
             {
                 Total();
             }
