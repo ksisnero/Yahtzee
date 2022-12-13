@@ -10,6 +10,7 @@ namespace Yahtzee.ViewModels
         private static List<int> _diceList;
         private static List<int> _sectionOnePointsList;
         private static List<int> _sectionTwoPointsList;
+        private static List<int> _sectionThreePointsList;
 
         public virtual void Roll()
         {
